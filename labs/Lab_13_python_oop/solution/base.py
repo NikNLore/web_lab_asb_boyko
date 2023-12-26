@@ -1,21 +1,18 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
+class BaseXlsBlock(ABC):
+    ROW_INCREMENT = 12
 
-class BaseXlsBlock(metaclass=ABCMeta):
-    NAME = "Block"
-    colNames = []
-
-    def __init__(self, worksheet, workbook, row, col, data={}):
-        self.worksheet = worksheet
-        self.workbook = workbook
-        self.row = row
-        self.col = col
-        self.data = data
+    def __init__(self, worksheet, row, col, data):
+        self.worksheet, self.row, self.col, self.data = worksheet, row, col, data
 
     @abstractmethod
-    def writeHeaderCol(self):
+    def write_header(self):
         pass
 
     @abstractmethod
-    def writeData(self):
+    def write_data(self):
         pass
+
+    def get_row_increment(self):
+        return self.ROW_INCREMENT
